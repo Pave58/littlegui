@@ -635,3 +635,46 @@ spawn(function()
 while wait() do
 Save()
 end end)
+
+local StarterGui = Get.StarterGui
+StarterGui:SetCore(
+    "SendNotification",
+    {
+        Title = "Warning",
+        Text = "RightControl to toggle if the gui does not show up then the game is not supported please try again later or never if the game is supported the gui will pop up reguardless GOOD DAY!",
+        Duration = 15
+    }
+)
+StarterGui:SetCore(
+    "SendNotification",
+    {
+        Title = "Credis",
+        Text = "CharWar Serverhops Toxic Mods screen thingy And Kiriot22 esp,IY for fly script inspiration,Staylin Save Settings,Felix for being sexy, E621 Anticheat bypasses"
+    }
+)
+wait(5)
+local function Copy()
+    setclipboard("https://discord.gg/HUBfmJUA2H")
+end
+local Gang = Instance.new("BindableFunction")
+
+local function Hoe(i, v)
+    StarterGui:SetCore("SendNotification", {Title = i, Text = v, Icon = "", Duration = 5})
+end
+function Gang.OnInvoke(v)
+    if v == "Yes" then
+        Copy()
+        Hoe("Discord Copied")
+    end
+end
+StarterGui:SetCore(
+    "SendNotification",
+    {
+        Title = "V.G Hub Discord",
+        Text = "Copy to clipboard?",
+        Duration = 5,
+        Callback = Gang,
+        Button1 = "Yes",
+        Button2 = "No"
+    }
+)
