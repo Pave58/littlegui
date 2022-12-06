@@ -13,6 +13,14 @@ getgenv().Get =
     }
 )
 
+
+local Config = {
+    WindowName = "V.G Hub",
+	Color = Color3.fromRGB(255,128,64),
+	Keybind = Enum.KeyCode.RightControl
+}
+
+
 for i,v in pairs(getgc(true)) do
     if type(v) == "function" and (getinfo(v).name == "AddBodyMover" or getinfo(v).name == "RagdollClient" or getinfo(v).name == "CameraShake") then
         hookfunction(v,function()
@@ -41,7 +49,7 @@ local Numbers = {
     52
 }
 
- 
+
 
 local Workspace = Get.Workspace 
 local Players = Get.Players
@@ -58,6 +66,11 @@ local spawn = task.spawn
 local Data = Player:FindFirstChild('MAIN_DATA')
 local UI = Player.PlayerGui.UI
 
+local d = Instance.new("Part")
+d.Name = "Ro"
+d.Parent = Workspace
+d.Anchored = true
+d.Position = Vector3.new()
 local Respawn = function() -- Stolen LOL
     require(ReplicatedStorage.Loader).ServerEvent("Core", "LoadCharacter", {})
     require(ReplicatedStorage.Loader).ServerEvent("Main", "LoadCharacter")
@@ -121,7 +134,7 @@ Text.Visible = true
 Workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(
     function()
         local X,Y= Text.TextBounds.X,Text.Position.Y
-        Text.Position = Vector2.new(Camera.ViewportSize.X / X , Y)
+        Text.Position = Vector2.new(Workspace.CurrentCamera.ViewportSize.X / X , Y)
         
     end
 )
@@ -176,7 +189,7 @@ Settings.Ez = State
 RunService.Stepped:connect(
     function()
         if Settings.Ez then
-            Player.Character:WaitForChild("Humanoid"):ChangeState(11)
+            Workspace.Ro.CFrame = Player.Character.HumanoidRootPart.CFrame * CFrame.new(0,-3,0)
         end
     end
 )
@@ -245,13 +258,15 @@ OldNameCall = hookmetamethod(game, "__namecall", function(self,...)
     return OldNameCall(self, ...)
 end)
 end)
-
+local LOL = {"Quake", "Gravity"}
 local Toggle1 = Section1:CreateToggle("Auto Spin", Settings.Spin, function(State)
 Settings.Spin = State
 spawn(function()
     while Settings.Spin do wait(2)
         if not string.find(Settings.Fruit,Slots[Slot.Value].Value) then
-            Load.Server("FruitsHandler","Spin",{}) 
+            if not table.find(LOL,Slots[Slot.Value].Value) then
+                Load.Server("FruitsHandler","Spin",{}) 
+            end 
         end
     end 
 end)
@@ -267,6 +282,7 @@ local Toggle1 = Section2:CreateToggle("Enable WalkSpeed/JumpPower", Settings.Go,
 Settings.Go = State
 RunService.Stepped:connect(
     function()
+        pcall(function()
         if Settings.Go then
             Player.Character:WaitForChild("Humanoid").WalkSpeed = Settings.WalkSpeed
             Player.Character:WaitForChild("Humanoid").JumpPower = Settings.JumpPower
@@ -274,6 +290,7 @@ RunService.Stepped:connect(
                 setfpscap(Settings.Fps)
             end
         end
+        end)
     end
 )
 
@@ -703,6 +720,8 @@ spawn(function()
 while wait() do
 Save()
 end end)
+
+
 local StarterGui = Get.StarterGui
 StarterGui:SetCore(
     "SendNotification",
