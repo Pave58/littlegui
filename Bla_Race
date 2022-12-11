@@ -21,6 +21,12 @@ local CheckIfOwnsGamepass = require(ReplicatedStorage:WaitForChild("Modules").Mi
 local AutoDelete = require(Player.PlayerGui.EggPreview.HideUI).AutoDelete
 local Name = game.PlaceId .. ".json"
 
+Player.Idled:connect(
+    function()
+        game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+    end
+)
+
 Des = {}
 if makefolder then
     makefolder("V.G Hub")
