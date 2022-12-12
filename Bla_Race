@@ -1,4 +1,13 @@
 --sex
+getgenv().Get =
+    setmetatable(
+    {},
+    {
+        __index = function(A, B)
+            return game:GetService(B)
+        end
+    }
+)
 local Config = {
     WindowName = "V.G Hub",
     Color = Color3.fromRGB(255, 128, 64),
