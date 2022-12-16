@@ -58,8 +58,6 @@ local StarterGui = Get.StarterGui
 local Player = Players.LocalPlayer
 local wait = task.wait
 local spawn = task.spawn
-local Data = Player:FindFirstChild('MAIN_DATA')
-local UI = Player.PlayerGui.UI
 
 local d = Instance.new("Part")
 d.Name = "Ro"
@@ -93,6 +91,9 @@ RunService.Stepped:connect(
         sethiddenproperty(Player, "SimulationRadius", 1000)
     end
 )
+repeat wait() until Player:FindFirstChild("MAIN_DATA")
+local Data = Player:FindFirstChild('MAIN_DATA')
+local UI = Player.PlayerGui.UI
 
 local Slots = Player["MAIN_DATA"].Slots
 local Slot = Player["MAIN_DATA"].Slot
@@ -150,6 +151,9 @@ Workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(
         
     end
 )
+local function Direction(A, B)
+    return (B - A).Unit * 1000
+end
 
 
 
@@ -273,26 +277,35 @@ end
 
 
 local OldNameCall = nil
-OldNameCall = hookmetamethod(game, "__namecall", function(self,...)
+OldNameCall = hookmetamethod(game, "__namecall", function(...)
     local Args = {...}
     if getnamecallmethod() == "Raycast" and not checkcaller() and Settings.E then
         local GivemeHead = ClosestPlayerToCurser()
-        if GivemeHead and GivemeHead.Character and GivemeHead.Character.FindFirstChild(GivemeHead.Character, "Head") then
-            Args[1] = GivemeHead.Character.HumanoidRootPart.Position, RaycastParams.new()
-            return OldNameCall(self, unpack(Args))
+        if GivemeHead and GivemeHead.Character then
+            local T = Args[2]
+            Args[3] = Direction(T,ClosestPlayerToCurser().Character.HumanoidRootPart.Position)
+            return OldNameCall(unpack(Args))
         end
     end
-    return OldNameCall(self, ...)
+    return OldNameCall(...)
 end)
 end)
+
+
+  
 local LOL = {"Quake", "Gravity"}
 local Toggle1 = Section1:CreateToggle("Auto Spin", Settings.Spin, function(State)
 Settings.Spin = State
+
+Load.ServerEvent("Core", "UpdateSettings", {["\255"] = true, ["\255"] = true, ["\255"] = true, ["\255"] = true, ["\255"] = true})
+
 spawn(function()
     while Settings.Spin do wait(2)
-        if not string.find(Settings.Fruit,Slots[Slot.Value].Value) then
+        if not string.find(Settings.Fruit,Slots[Slot.Value].Value) and Player.MAIN_DATA.Gems.Value > 50 then
             if not table.find(LOL,Slots[Slot.Value].Value) then
                 Load.Server("FruitsHandler","Spin",{}) 
+            else
+                TeleportService:Teleport(game.PlaceId, Player)
             end 
         end
     end 
