@@ -1,0 +1,7 @@
+local Env = getgenv and getgenv() or _G or Sh
+local Global = _G
+local Set = setmetatable({},{__index = function(A, B) return game:GetService(B)end})
+Env.Get = Set
+for i,v in pairs(game:GetChildren()) do
+    Env[v.ClassName] = v
+end
