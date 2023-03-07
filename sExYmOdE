@@ -319,7 +319,7 @@ local Toggle1 = Section1:CreateToggle("Kill Mob Aura", Settings.G91, function(St
             pcall(function()
                 for i,v in pairs(Workspace.Enemies:GetChildren()) do
                     if v:IsA("Model")  and v.Attributes.Health.Value ~= 0 and (Player.Character:GetModelCFrame().Position - v:GetModelCFrame().Position).Magnitude < 10 then
-                        ReplicatedStorage.RS.Remotes.Combat.DealWeaponDamage:FireServer(0,Player.Character,v,"{\"Level\":2,\"Name\":\"Old Dagger\"}","Slash")
+                        ReplicatedStorage.RS.Remotes.Combat.DealWeaponDamage:FireServer(math.huge,Player.Character,v,"{\"Level\":2,\"Name\":\"Old Dagger\"}","Slash")
                     end 
                 end 
             end)
@@ -334,7 +334,7 @@ local Toggle1 = Section1:CreateToggle("Kill Player Aura", Settings.G9, function(
            pcall(function()
                 for i,v in pairs(Players:GetPlayers()) do
                     if v:IsA("Model") and (Player.Character:GetModelCFrame().Position - v.Character:GetModelCFrame().Position).Magnitude < 10 then
-                        ReplicatedStorage.RS.Remotes.Combat.DealWeaponDamage:FireServer(0,Player.Character,v.Character,"{\"Level\":2,\"Name\":\"Old Dagger\"}","Slash")
+                        ReplicatedStorage.RS.Remotes.Combat.DealWeaponDamage:FireServer(math.huge,Player.Character,v.Character,"{\"Level\":2,\"Name\":\"Old Dagger\"}","Slash")
                     end 
                 end 
             end)
