@@ -187,7 +187,7 @@ local Toggle1 = Section1:CreateToggle("Auto Chests", Settings.AutoChests, functi
                                 Player.Character:FindFirstChild("HumanoidRootPart").CFrame = v:GetModelCFrame() * CFrame.new(0,5,0)
                                 wait(0.5)
                                 fireproximityprompt(v:FindFirstChildWhichIsA("ProximityPrompt",true))
-                                wait(5)
+                                wait(math.random(5,10))
                             end 
                         end 
                     end 
@@ -301,7 +301,7 @@ local Toggle1 = Section1:CreateToggle("Auto Mob", Settings.G, function(State)
                         if not Player.Character:FindFirstChildWhichIsA("Tool") then
                             Player.Character:FindFirstChildWhichIsA("Humanoid"):EquipTool(Player.Backpack:FindFirstChild(Player.Character.Data.Melee1.Value))
                         end 
-                        ReplicatedStorage.RS.Remotes.Combat.DealWeaponDamage:FireServer(0,game:GetService("Players").LocalPlayer.Character,v,"{\"Level\":2,\"Name\":\"Old Dagger\"}","Slash")
+                        ReplicatedStorage.RS.Remotes.Combat.DealWeaponDamage:FireServer(math.huge,game:GetService("Players").LocalPlayer.Character,v,"{\"Level\":2,\"Name\":\"Old Dagger\"}","Slash")
                     end 
                 end 
             end)
