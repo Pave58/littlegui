@@ -6,22 +6,31 @@ local Config = {
 repeat 
     task.wait()
 until game:IsLoaded()
+getgenv().Get =
+    setmetatable(
+    {},
+    {
+        __index = function(A, B)
+            return game:GetService(B)
+        end
+    }
+)
 local Table = {
     3272915504,
     12604352060
 }
 if not table.find(Table,game.PlaceId) then return end
-local Players = game.Players
-local ReplicatedStorage = game.ReplicatedStorage
-local Workspace = game.Workspace
-local VirtualUser = game.VirtualUser 
-local HttpService = game.HttpService 
-local VirtualInputManager = game.VirtualInputManager
-local HttpService = game.HttpService
-local TweenService = game.TweenService 
-local TeleportService = game.TeleportService
-local RunService = game.RunService
-local MarketplaceService = game.MarketplaceService
+local Players =Get.Players
+local ReplicatedStorage =Get.ReplicatedStorage
+local Workspace =Get.Workspace
+local VirtualUser =Get.VirtualUser 
+local HttpService =Get.HttpService 
+local VirtualInputManager =Get.VirtualInputManager
+local HttpService =Get.HttpService
+local TweenService =Get.TweenService 
+local TeleportService =Get.TeleportService
+local RunService =Get.RunService
+local MarketplaceService =Get.MarketplaceService
 
 local Player = Players.LocalPlayer
 local Character = (Player.Character or Player.CharacterAdded:Wait())
@@ -40,6 +49,9 @@ local Invis = function()
     Clone.Parent = Player.Character:FindFirstChild("LowerTorso")
     Player.Character:FindFirstChild("LowerTorso").velocity = Vector3.new(0,0,0)
     Player.Character:FindFirstChild("LowerTorso").Root:Destroy()
+end 
+local Return = function()
+    return game:GetService("ReplicatedStorage").RS.Remotes.Combat.StaminaCost:FireServer(-100000000, "Dodge")
 end 
 Players.LocalPlayer.Idled:connect(
     function()
@@ -99,6 +111,16 @@ for i,v in pairs(Player.Backpack:GetChildren()) do
 end 
 
 
+local OldNameCall = nil
+OldNameCall = hookmetamethod(game,"__namecall",function(...)
+    local A, B, C = ...
+    local D = {...}
+    if A.Name == "SetTarget" and D[2] == game:GetService("Players").LocalPlayer.Character and Settings.Target then
+        D[3] = "Passive" .. D[3]
+    end 
+    return OldNameCall(...)
+end)
+
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/1201for/V.G-Hub/main/test"))()
 local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
 
@@ -124,6 +146,7 @@ local Toggle1 = Section1:CreateToggle("Auto Fish", Settings.Fishing, function(St
                 end 
                 if Player.Character:FindFirstChild("FishClock") and Player.Character:FindFirstChild("FishBiteGoal") then
                     ReplicatedStorage.RS.Remotes.Misc.ToolAction:FireServer(Player.Character:FindFirstChild(Settings.Rod))
+                    Player.Character:FindFirstChild("HumanoidRootPart")
                 end 
             end)
         end 
@@ -133,13 +156,6 @@ local Dropdown3 = Section1:CreateDropdown("Rods", Rods, function(Name3)
 	Settings.Rod = Name3
 end)
 
-local Toggle1 = Section1:CreateToggle("WalkOnWater", Settings.No, function(State)
-    if Settings.No then
-        game:GetService("Workspace").Camera.Waves.CanCollide = true
-    else
-        game:GetService("Workspace").Camera.Waves.CanCollide = false
-    end 
-end)
 local Toggle1 = Section1:CreateToggle("Auto Fruits", Settings.AutoFruits, function(State)
     Settings.AutoFruits = State
     RunService.Stepped:Connect(function()
@@ -187,7 +203,7 @@ local Toggle1 = Section1:CreateToggle("Auto Chests", Settings.AutoChests, functi
                                 Player.Character:FindFirstChild("HumanoidRootPart").CFrame = v:GetModelCFrame() * CFrame.new(0,5,0)
                                 wait(0.5)
                                 fireproximityprompt(v:FindFirstChildWhichIsA("ProximityPrompt",true))
-                                wait(math.random(5,10))
+                                wait(5)
                             end 
                         end 
                     end 
@@ -275,7 +291,17 @@ local Toggle1 = Section1:CreateToggle("Auto Charge Energy", Settings.Ad, functio
         end
     end)
 end)
-
+local Toggle1 = Section1:CreateToggle("Infinite Stamina", Settings.Doo, function(State)
+    Settings.Doo = State
+    if Settings.Doo then
+        Return()
+    else
+        Player.Character:FindFirstChildWhichIsA("Humanoid").Health = 0
+    end 
+end)
+local Toggle1 = Section1:CreateToggle("Anti Mob Targetting", Settings.Target, function(State)
+    Settings.Target = State
+end)
 if Workspace:FindFirstChild("Enemies") then
 local Toggle1 = Section1:CreateToggle("Auto Mob", Settings.G, function(State)
     Settings.Mobs = State
@@ -301,7 +327,7 @@ local Toggle1 = Section1:CreateToggle("Auto Mob", Settings.G, function(State)
                         if not Player.Character:FindFirstChildWhichIsA("Tool") then
                             Player.Character:FindFirstChildWhichIsA("Humanoid"):EquipTool(Player.Backpack:FindFirstChild(Player.Character.Data.Melee1.Value))
                         end 
-                        ReplicatedStorage.RS.Remotes.Combat.DealWeaponDamage:FireServer(math.huge,game:GetService("Players").LocalPlayer.Character,v,"{\"Level\":2,\"Name\":\"Old Dagger\"}","Slash")
+                        ReplicatedStorage.RS.Remotes.Combat.DealWeaponDamage:FireServer(0,game:GetService("Players").LocalPlayer.Character,v,"{\"Level\":2,\"Name\":\"Old Dagger\"}","Slash")
                     end 
                 end 
             end)
@@ -319,7 +345,7 @@ local Toggle1 = Section1:CreateToggle("Kill Mob Aura", Settings.G91, function(St
             pcall(function()
                 for i,v in pairs(Workspace.Enemies:GetChildren()) do
                     if v:IsA("Model")  and v.Attributes.Health.Value ~= 0 and (Player.Character:GetModelCFrame().Position - v:GetModelCFrame().Position).Magnitude < 10 then
-                        ReplicatedStorage.RS.Remotes.Combat.DealWeaponDamage:FireServer(math.huge,Player.Character,v,"{\"Level\":2,\"Name\":\"Old Dagger\"}","Slash")
+                        ReplicatedStorage.RS.Remotes.Combat.DealWeaponDamage:FireServer(0,Player.Character,v,"{\"Level\":2,\"Name\":\"Old Dagger\"}","Slash")
                     end 
                 end 
             end)
@@ -334,7 +360,7 @@ local Toggle1 = Section1:CreateToggle("Kill Player Aura", Settings.G9, function(
            pcall(function()
                 for i,v in pairs(Players:GetPlayers()) do
                     if v:IsA("Model") and (Player.Character:GetModelCFrame().Position - v.Character:GetModelCFrame().Position).Magnitude < 10 then
-                        ReplicatedStorage.RS.Remotes.Combat.DealWeaponDamage:FireServer(math.huge,Player.Character,v.Character,"{\"Level\":2,\"Name\":\"Old Dagger\"}","Slash")
+                        ReplicatedStorage.RS.Remotes.Combat.DealWeaponDamage:FireServer(0,Player.Character,v.Character,"{\"Level\":2,\"Name\":\"Old Dagger\"}","Slash")
                     end 
                 end 
             end)
@@ -500,7 +526,7 @@ end)
 local Toggle1 = Section2:CreateToggle("H Fly", Settings.Sex2, function(State)
 Settings.Sex2 = State
 local Max = 0
-local Players = game.Players
+local Players =Get.Players
 local LP = Players.LocalPlayer
 local Mouse = LP:GetMouse()
 Mouse.KeyDown:connect(
@@ -547,7 +573,7 @@ Mouse.KeyDown:connect(
                                         ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (S.F + S.B)) +
                                         ((game.Workspace.CurrentCamera.CoordinateFrame *
                                             CFrame.new(S.L + S.R, (S.F + S.B) * 0.2, 0).p) -
-                                            game.Workspace.CurrentCamera.CoordinateFrame.p)) *
+                                           Get.Workspace.CurrentCamera.CoordinateFrame.p)) *
                                         SPEED
                                     S2 = {
                                         F = S.F,
@@ -560,12 +586,12 @@ Mouse.KeyDown:connect(
                                         ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (S2.F + S2.B)) +
                                         ((game.Workspace.CurrentCamera.CoordinateFrame *
                                             CFrame.new(S2.L + S2.R, (S2.F + S2.B) * 0.2, 0).p) -
-                                            game.Workspace.CurrentCamera.CoordinateFrame.p)) *
+                                           Get.Workspace.CurrentCamera.CoordinateFrame.p)) *
                                         SPEED
                                 else
                                     BodyVelocity.velocity = Vector3.new(0, 0.1, 0)
                                 end
-                                BodyGyro.cframe = game.Workspace.CurrentCamera.CoordinateFrame
+                                BodyGyro.cframe =Get.Workspace.CurrentCamera.CoordinateFrame
                             until not getgenv().Fly
                             S = {
                                 F = 0,
@@ -634,7 +660,7 @@ end
 end)
 
 local Button1 = Section2:CreateButton("Teleport to RandomPlayer", function()
-local randomPlayer = game.Players:GetPlayers()[math.random(1, #game.Players:GetPlayers())]
+local randomPlayer =Get.Players:GetPlayers()[math.random(1, #game.Players:GetPlayers())]
 
 Player.Character.HumanoidRootPart.CFrame =
     CFrame.new(
@@ -659,7 +685,7 @@ game:GetService("UserInputService").InputEnded:connect(
 )
  end) 
 local Button1 = Section2:CreateButton("ServerHop", function()
-local PlaceID = game.PlaceId
+local PlaceID =Get.PlaceId
 local AllIDs = {}
 local foundAnything = ""
 local actualHour = os.date("!*t").hour
@@ -674,9 +700,9 @@ end
 function TPReturner()
     local Site;
     if foundAnything == "" then
-        Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
+        Site =Get.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
     else
-        Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
+        Site =Get.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
     end
     local ID = ""
     if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
