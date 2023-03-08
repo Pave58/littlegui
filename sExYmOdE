@@ -50,9 +50,7 @@ local Invis = function()
     Player.Character:FindFirstChild("LowerTorso").velocity = Vector3.new(0,0,0)
     Player.Character:FindFirstChild("LowerTorso").Root:Destroy()
 end 
-local Return = function()
-    return game:GetService("ReplicatedStorage").RS.Remotes.Combat.StaminaCost:FireServer(-100000000, "Dodge")
-end 
+
 Players.LocalPlayer.Idled:connect(
     function()
         VirtualUser:ClickButton2(Vector2.new())
@@ -192,18 +190,20 @@ local Toggle1 = Section1:CreateToggle("Auto Chests", Settings.AutoChests, functi
             end)
         end 
     end)
+    
     spawn(function()
         while wait() and Settings.AutoChests do 
             pcall(function()
+                local Luck = 0 
                 for i,v in pairs(Workspace.Map:GetChildren()) do
                     if v:FindFirstChild("Chests",true) then
+                        Luck = Luck + 1 
                         for i,v in pairs(v.Chests:GetChildren()) do
-                            local D = v:FindFirstChildWhichIsA("BasePart",true)
-                            if v:IsA("Model") and D.Transparency == 0 and Settings.AutoChests then
-                                Player.Character:FindFirstChild("HumanoidRootPart").CFrame = v:GetModelCFrame() * CFrame.new(0,5,0)
+                            if v:IsA("Model") and not v:FindFirstChild("Open") and Settings.AutoChests then
+                                Player.Character:FindFirstChild("HumanoidRootPart",true).CFrame = v:GetModelCFrame() * CFrame.new(0,5,0)
                                 wait(0.5)
                                 fireproximityprompt(v:FindFirstChildWhichIsA("ProximityPrompt",true))
-                                wait(5)
+                                wait(10) 
                             end 
                         end 
                     end 
@@ -570,8 +570,8 @@ Mouse.KeyDown:connect(
                                 end
                                 if (S.L + S.R) ~= 0 or (S.F + S.B) ~= 0 then
                                     BodyVelocity.velocity =
-                                        ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (S.F + S.B)) +
-                                        ((game.Workspace.CurrentCamera.CoordinateFrame *
+                                        ((Workspace.CurrentCamera.CoordinateFrame.lookVector * (S.F + S.B)) +
+                                        ((Workspace.CurrentCamera.CoordinateFrame *
                                             CFrame.new(S.L + S.R, (S.F + S.B) * 0.2, 0).p) -
                                            Get.Workspace.CurrentCamera.CoordinateFrame.p)) *
                                         SPEED
@@ -583,8 +583,8 @@ Mouse.KeyDown:connect(
                                     }
                                 elseif (S.L + S.R) == 0 and (S.F + S.B) == 0 and SPEED ~= 0 then
                                     BodyVelocity.velocity =
-                                        ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (S2.F + S2.B)) +
-                                        ((game.Workspace.CurrentCamera.CoordinateFrame *
+                                        ((Workspace.CurrentCamera.CoordinateFrame.lookVector * (S2.F + S2.B)) +
+                                        ((Workspace.CurrentCamera.CoordinateFrame *
                                             CFrame.new(S2.L + S2.R, (S2.F + S2.B) * 0.2, 0).p) -
                                            Get.Workspace.CurrentCamera.CoordinateFrame.p)) *
                                         SPEED
