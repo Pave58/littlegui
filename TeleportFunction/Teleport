@@ -18,10 +18,11 @@ for i, v in pairs(getgc()) do
 end
 
 Location = function(A, B, C)
-   local O = get_thread_identity()
-   set_thread_identity(2)
-   L(A, B, C)
-   set_thread_identity(O)
-   return A, B, C
+    pcall(function()
+        local O = get_thread_identity()
+        set_thread_identity(2)
+        L(A, B, C)
+        set_thread_identity(O)
+    end)
 end
 return Location
