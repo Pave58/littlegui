@@ -110,7 +110,7 @@ local function ErrorPrompt(Message,state)
     end
 end
 
-local Highlight =loadstring(game:HttpGet("https://raw.githubusercontent.com/1201for/littlegui/main/Heightligh"))()
+local Highlight =loadstring(game:HttpGet("https://raw.githubusercontent.com/Pave58/littlegui/main/Heightligh"))()
 ---- GENERATED (kinda sorta mostly) BY GUI to LUA ----
 
 -- Instances:

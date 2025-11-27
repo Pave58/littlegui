@@ -14,7 +14,7 @@ repeat wait() until game:IsLoaded() wait()
 Player.Idled:connect(function()
 game:GetService("VirtualUser"):ClickButton2(Vector2.new())
 end)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/1201for/V.G_Hub_Extras/main/Universal_Client_Bypass"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Pave58/V.G_Hub_Extras/main/Universal_Client_Bypass"))()
 
 for i,v in pairs(getconnections(Player.Idled)) do
     v:Disable()
@@ -99,7 +99,7 @@ Player.Character.LowerTorso.Root:Destroy()
 Clone.Parent = Player.Character.LowerTorso
 end 
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/1201for/V.G-Hub/main/test"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Pave58/V.G-Hub/main/test"))()
 local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
 
 local Tab1 = Window:CreateTab("Super Bomb Survival")
@@ -318,7 +318,7 @@ UserInputService.JumpRequest:connect(
 )
 end)
 
-local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/1201for/V.G-Hub/main/Karrot-Esp"))()
+local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/Pave58/V.G-Hub/main/Karrot-Esp"))()
 local Toggle1 = Section1:CreateToggle("Enable Esp", Settings.Esp, function(State)
     Settings.Esp = State
     ESP:Toggle(Settings.Esp)

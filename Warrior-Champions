@@ -49,7 +49,7 @@ game:GetService('RunService').Stepped:connect(function()
 if game:GetService("CoreGui"):FindFirstChild('PurchasePromptApp') then
 game:GetService("CoreGui").PurchasePromptApp:remove()
 end end)
-local Lib = loadstring(game:HttpGet('https://raw.githubusercontent.com/1201for/V.G-Hub/main/IMRETARDED'))()
+local Lib = loadstring(game:HttpGet('https://raw.githubusercontent.com/Pave58/V.G-Hub/main/IMRETARDED'))()
 local CategoryVariableHere= Lib:Category("Warrior Champions")
 CategoryVariableHere:Toggle("Auto Swing",function(State)
 g = State

@@ -10,7 +10,7 @@ Meta.__newindex = newcclosure(function(t, k, ...)
 end)
 
 setreadonly(Meta, true)
-local Lib = loadstring(game:HttpGet('https://raw.githubusercontent.com/1201for/V.G-Hub/main/IMRETARDED'))()
+local Lib = loadstring(game:HttpGet('https://raw.githubusercontent.com/Pave58/V.G-Hub/main/IMRETARDED'))()
 local CategoryVariableHere= Lib:Category("Destruction Simulator")
 
 CategoryVariableHere:Toggle("AutoFarm",function(State)

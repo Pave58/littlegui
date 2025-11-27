@@ -52,7 +52,7 @@ game:GetService("Players").LocalPlayer.multiJumpCount.Value = 50
 game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("statEffectsGui")
 game:GetService("Players").LocalPlayer.PlayerGui.statEffectsGui:remove()
 end) end)
-local Lib = loadstring(game:HttpGet('https://raw.githubusercontent.com/1201for/V.G-Hub/main/IMRETARDED'))()
+local Lib = loadstring(game:HttpGet('https://raw.githubusercontent.com/Pave58/V.G-Hub/main/IMRETARDED'))()
 local CategoryVariableHere= Lib:Category("Ninja Legends")
 CategoryVariableHere:Toggle("Auto Swing",function(State)
 swing = State
@@ -539,7 +539,7 @@ pcall(function()
 game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("statEffectsGui")
 game:GetService("Players").LocalPlayer.PlayerGui.statEffectsGui:remove()
 end) end)
-local Lib = loadstring(game:HttpGet('https://raw.githubusercontent.com/1201for/V.G-Hub/main/IMRETARDED'))()
+local Lib = loadstring(game:HttpGet('https://raw.githubusercontent.com/Pave58/V.G-Hub/main/IMRETARDED'))()
 local CategoryVariableHere= Lib:Category("Ninja Legends 2")
 CategoryVariableHere:Toggle("Auto Swing",function(State)
 swing = State

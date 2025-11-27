@@ -1,2 +1,2 @@
-loadstring(game:HttpGet('https://raw.githubusercontent.com/1201for/littlegui/main/GetAllHats'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Pave58/littlegui/main/GetAllHats'))()
     

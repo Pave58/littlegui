@@ -1,4 +1,4 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/1201for/V.G_Hub_Extras/main/Universal_Client_Bypass"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Pave58/V.G_Hub_Extras/main/Universal_Client_Bypass"))()
 getgenv().Get =
     setmetatable(
     {},
@@ -184,7 +184,7 @@ if Settings.Method == nil then
     Settings.Method = "Sky"
 end 
 
-local Library =  loadstring(game:HttpGet("https://raw.githubusercontent.com/1201for/V.G-Hub/main/test"))()
+local Library =  loadstring(game:HttpGet("https://raw.githubusercontent.com/Pave58/V.G-Hub/main/test"))()
 local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
 
 local Tab1 = Window:CreateTab("Elemental Battlegrounds")
@@ -359,7 +359,7 @@ game:GetService("UserInputService").JumpRequest:connect(
 )
 end)
 
-local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/1201for/V.G-Hub/main/Karrot-Esp"))()
+local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/Pave58/V.G-Hub/main/Karrot-Esp"))()
 
 local Toggle1 = Section1:CreateToggle("Enable Esp", Settings.Esp, function(State)
     Settings.Esp = State

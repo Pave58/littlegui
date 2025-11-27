@@ -1,7 +1,7 @@
 if game.PlaceId == 8619263259 then
-loadstring(game:HttpGet('https://raw.githubusercontent.com/1201for/V.G-hub-Part-Two/main/CL'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Pave58/V.G-hub-Part-Two/main/CL'))()
 elseif game.PlaceId == 8561066003 then
-loadstring(game:HttpGet('https://raw.githubusercontent.com/1201for/V.G-hub-Part-Two/main/CL2'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Pave58/V.G-hub-Part-Two/main/CL2'))()
 end
 game.StarterGui:SetCore("SendNotification", {
 Title = "Warning";

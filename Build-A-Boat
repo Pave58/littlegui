@@ -27,7 +27,7 @@ end
 blur:Destroy()
 ScreenGui:Destroy()
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/1201for/V.G_Hub_Extras/main/Universal_Client_Bypass"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Pave58/V.G_Hub_Extras/main/Universal_Client_Bypass"))()
 local Config = {
     WindowName = "V.G Hub",
 	Color = Color3.fromRGB(255,128,64),
@@ -69,7 +69,7 @@ end
 getgenv().Number = 1
 
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/1201for/V.G-Hub/main/im-retarded-3"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Pave58/V.G-Hub/main/im-retarded-3"))()
 local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
 
 local Tab1 = Window:CreateTab("Build a Boat")
